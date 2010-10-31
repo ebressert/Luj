@@ -1,0 +1,1 @@
+Luj (pronounced the same as luge) combines LuaJIT and Python to speed up Python in a unique way; a pure scriptable extension with no binary installation required. This extension enables rapid speed up of Python code and ease of sharing code amongst one another. In the next few weeks alpha quality code will be uploaded for others to try. 
