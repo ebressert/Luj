@@ -17,7 +17,7 @@ def find_pi(n):
             c += 1
     return 4. * float(c) / float(n)
     
-n = 10000000
+n = 20000000
 start = time()
 print "pi = %.10f" % find_pi(n)
 print "Pure Python in %.3f seconds" % (time() - start)

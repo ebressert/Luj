@@ -11,5 +11,5 @@ function find_pi(n)
     return 4 * c / n
 end
 
-n = 10000000
+n = 20000000
 print('pi =', find_pi(n))

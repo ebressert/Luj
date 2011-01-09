@@ -1,6 +1,5 @@
 import os
 import subprocess as sp
-# from lujio import LujIO uncomment to fix
 from lujio import LujIO
 
 abspath = os.path.abspath('./') + '/'
