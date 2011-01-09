@@ -3,7 +3,7 @@ to speed up Python in a unique way; a pure scriptable
 extension with no binary installation required. This
 extension enables rapid speed up of Python code and ease of
 sharing code amongst one another. The code is in alpha state
-and is not recommended for 
+and is not recommended for mainstream use yet. 
 
 Examples:
 To run the examples, do so from the root directory of Luj. 
