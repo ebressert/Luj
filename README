@@ -24,9 +24,9 @@ run it from Luj's root directory by doing
 Types:
 Luj can currently handle integers, floats, lists, and 
 dictionaries. It can parse a N-dimensional numpy array,
-but interacting with the array in Lua table's is cumbersome. 
-A update will soon follow to allow easier access to Numpy 
-arrays. 
+but interacting with the array in Lua table format is 
+cumbersome at the moment. A update will soon follow to 
+allow easier access to Numpy arrays. 
 
 
 Development:
