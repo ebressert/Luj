@@ -30,11 +30,12 @@ def pysquared_arr(a):
         if i % 2 ==0:
             a = a - 0.01
     return a
-"""   
+  
 start = time()
 a = numpy.arange(8000).reshape((20,20,20))
 b = pysquared(a)
 print "Python function execution in %.3f seconds" % (time() - start)
+"""
 
 start = time()
 a = numpy.arange(8000).reshape((20,20,20))
