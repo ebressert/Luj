@@ -2,10 +2,11 @@ import os
 import subprocess as sp
 from lujio import LujIO
 
-abspath = os.path.abspath('./') + '/'
+# abspath = os.path.abspath('./') + '/'
 
 def lua(command, python_obj = False, lua_obj = False, format = 'text', lua_call = 'lua', 
                 pl_type = 'auto', lp_type= 'auto', **kwargs):
+    abspath = os.path.abspath('./') + '/'
     setup = LujIO(command, python_obj, lua_obj)
     setup._pl_type()
     # _type = setup.type

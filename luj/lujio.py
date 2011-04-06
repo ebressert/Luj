@@ -1,12 +1,11 @@
 import os
-# import string
 import luafuncs as lf
 try:
     import numpy 
 except:
     pass
 
-abspath = os.path.abspath('./') + '/'
+# abspath = os.path.abspath('./') + '/'
 
 dicLua = {}
 dicLua['number'] = 'element'
@@ -32,6 +31,8 @@ class LujIO(object):
         """
         
         """
+        self.abspath = os.path.abspath('./') + '/'
+        
         if python_obj:
             self.python_obj = python_obj
             # self.python_obj_name = _get_var_name(python_obj, vars())
@@ -49,43 +50,44 @@ class LujIO(object):
         # Setup dictionary for add_begin and add_end to automate in and out reading/writing.
         self.beginDic = {}
         self.endDic = {}
-        self.beginDic['element'] = lf.grab_func('string_split') + lf.grab_func('string_join') \
-                        + 'data = io.open("' + abspath + 'data.txt","r")\n' \
+        self.beginDic['element'] = lf.grab_func('numpy_in_lua') + lf.grab_func('string_split') + lf.grab_func('string_join') \
+                        + 'data = io.open("' + self.abspath + 'data.txt","r")\n' \
                         + self.python_obj_name + ' = data:read("*all")\ndata:close()\n'
         
-        self.beginDic['list'] = lf.grab_func('string_split') + lf.grab_func('string_join') \
-                        + 'data = io.open("' + abspath + 'data.txt","r")\n' \
+        self.beginDic['list'] = lf.grab_func('numpy_in_lua') + lf.grab_func('string_split') \
+                        + lf.grab_func('string_join') \
+                        + 'data = io.open("' + self.abspath + 'data.txt","r")\n' \
                         + self.python_obj_name + ' = data:read("*all")\ndata:close()\n'\
                         + self.python_obj_name + ' = ' + self.python_obj_name + ':gsub("%[","")\n'\
                         + self.python_obj_name + ' = ' + self.python_obj_name + ':gsub("%]","")\n'\
                         + self.python_obj_name + ' = split(' + self.python_obj_name + ',",")\n'
         
-        self.beginDic['numpy_array'] = lf.grab_func('string_split') + lf.grab_func('string_join') + lf.grab_func('numpy_parse')\
-                        + 'data = io.open("' + abspath + 'data.txt","r")\n'\
+        self.beginDic['numpy_array'] = lf.grab_func('numpy_in_lua') + lf.grab_func('string_split') + lf.grab_func('string_join') + lf.grab_func('numpy_parse')\
+                        + 'data = io.open("' + self.abspath + 'data.txt","r")\n'\
                         + self.python_obj_name + ' = data:read("*all")\ndata:close()\n'\
                         + self.python_obj_name + '= numpy_parser(' + self.python_obj_name + ')\n'
         
-        self.endDic['lua_type'] = '\nout_type = io.open("' + abspath + 'out_type.txt","w")\n' \
+        self.endDic['lua_type'] = '\nout_type = io.open("' + self.abspath + 'out_type.txt","w")\n' \
                         +'out_type:write(type(' + self.lua_obj_name + '))\n' \
                         +'out_type:close()\n'
         
         self.endDic['output_func'] = '\nfunction output(var)\n'\
                         +'if (type(var) == type("str")) or (type(var) == type(1)) then\n'\
-                        + 'new_data = io.open("' + abspath + 'new_data.txt","w")\n'\
+                        + 'new_data = io.open("' + self.abspath + 'new_data.txt","w")\n'\
                         + 'new_data:write(' + self.lua_obj_name + ')\n'\
                         + 'new_data:close()\nend'\
                         + '\nif (type(var) == type({1,2})) then\n'\
                         + self.lua_obj_name +'= join('+self.lua_obj_name+')\n'\
-                        + 'new_data = io.open("' + abspath + 'new_data.txt","w")\n'\
+                        + 'new_data = io.open("' + self.abspath + 'new_data.txt","w")\n'\
                         + 'new_data:write(' + self.lua_obj_name + ')\nnew_data:close()\n'\
                         + '\nend \nend\n'\
                         + 'output(' + self.lua_obj_name + ')'
         
-        self.endDic['element'] = '\nnew_data = io.open("' + abspath + 'new_data.txt","w")\n' \
+        self.endDic['element'] = '\nnew_data = io.open("' + self.abspath + 'new_data.txt","w")\n' \
                         + 'new_data:write(' + self.lua_obj_name + ')\nnew_data:close()'
         
         self.endDic['list'] = self.lua_obj_name +'= join('+self.lua_obj_name+')\n' \
-                        + 'new_data = io.open("' + abspath + 'new_data.txt","w")\n' \
+                        + 'new_data = io.open("' + self.abspath + 'new_data.txt","w")\n' \
                         + 'new_data:write(' + self.lua_obj_name + ')\nnew_data:close()\n'
     
             
@@ -193,7 +195,7 @@ class LujIO(object):
         """
         # print('executing _lp_type')
         if self.lp_type == 'auto':
-            f = open(abspath+'out_type.txt','r')
+            f = open(self.abspath+'out_type.txt','r')
             data = f.readlines()
             try:
                 self._lua_type = dicLua[data[0]]
