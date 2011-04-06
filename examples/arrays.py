@@ -19,6 +19,8 @@ def squared(a):
     out = luj.lua(command, python_obj = a, lua_obj = 'out', lua_call = 'luajit')
     return out
 
+# Example routine not yet complete. 
+"""
 def pysquared_arr(a):
     s = a.shape
     a = a.ravel()
@@ -28,7 +30,7 @@ def pysquared_arr(a):
         if i % 2 ==0:
             a = a - 0.01
     return a
-    
+"""   
 start = time()
 a = numpy.arange(8000).reshape((20,20,20))
 b = pysquared(a)
